@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { storage } from '@/lib/storage'
+import { getApiBaseUrl } from '@/lib/config'
 import type {
   CredentialsStatusResponse,
   BalanceResponse,
@@ -12,14 +13,14 @@ import type {
 
 // 创建 axios 实例
 const api = axios.create({
-  baseURL: '/api/admin',
   headers: {
     'Content-Type': 'application/json',
   },
 })
 
-// 请求拦截器添加 API Key
+// 请求拦截器添加 API Key 和动态 baseURL
 api.interceptors.request.use((config) => {
+  config.baseURL = getApiBaseUrl()
   const apiKey = storage.getApiKey()
   if (apiKey) {
     config.headers['x-api-key'] = apiKey

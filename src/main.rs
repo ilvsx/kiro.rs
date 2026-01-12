@@ -125,7 +125,8 @@ async fn main() {
             let admin_app = admin::create_admin_router(admin_state);
 
             // 创建 Admin UI 路由
-            let admin_ui_app = admin_ui::create_admin_ui_router();
+            let base_path = config.base_path.clone().unwrap_or_default();
+            let admin_ui_app = admin_ui::create_admin_ui_router(base_path);
 
             tracing::info!("Admin API 已启用");
             tracing::info!("Admin UI 已启用: /admin");

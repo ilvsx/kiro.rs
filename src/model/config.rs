@@ -58,6 +58,11 @@ pub struct Config {
     /// Admin API 密钥（可选，启用 Admin API 功能）
     #[serde(default)]
     pub admin_api_key: Option<String>,
+
+    /// 外部访问路径前缀（用于反向代理场景）
+    /// 例如："/kiro-rs" 表示通过 /kiro-rs/admin 访问
+    #[serde(default)]
+    pub base_path: Option<String>,
 }
 
 fn default_host() -> String {
@@ -107,6 +112,7 @@ impl Default for Config {
             proxy_username: None,
             proxy_password: None,
             admin_api_key: None,
+            base_path: None,
         }
     }
 }
